@@ -23,7 +23,8 @@ public class ArrayQueue<E> implements Queue<E> {
 	public E dequeue() {
 		if (isEmpty()) return null;
 		E etr = elements[first]; 
-
+		elements[first] = null;
+		first = (first+1)% elements.length;
 		//... adjust whatever needs to be adjusted ...
 
 		// Check if number of available positions in the array exceed 3/4
@@ -32,20 +33,28 @@ public class ArrayQueue<E> implements Queue<E> {
 		// current length (the capacity of the queue). 
 		if (elements.length >= 2*INITCAP && size < elements.length/4)
 			changeCapacity(elements.length/2); 
+		size--;
 		return etr; 
 	}
 
 	public void enqueue(E e) {
 		if (size == elements.length)   // check capacity, double it if needed
 			changeCapacity(2*size); 
+		elements[(first+size)%elements.length]=e;
+		size++;
 
 		//... finish the implementation of this method ... 
 	}
 
 	private void changeCapacity(int newCapacity) { 
 		// PRE: newCapacity >= size
-
-		//... finish the implementation of this method ...
+		E[] t = (E[]) new Object[newCapacity];
+		for(int i=0; i<size; i++) {
+			t[i]= elements[(first+i)%size];
+			elements[(first +i)%size]=null;
+		}
+		elements = t;
+		first = 0;
 	}
 
 }
