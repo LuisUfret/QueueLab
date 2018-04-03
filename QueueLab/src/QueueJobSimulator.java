@@ -30,9 +30,19 @@ public class QueueJobSimulator {
 					processingQueue.enqueue(processingQueue.dequeue());
 				}
 			if(!inputQueue.isEmpty()) {
-				if()
+				if(inputQueue.first().getArrivalTime()==t) 
+					processingQueue.enqueue(inputQueue.dequeue());
 			}
+			t++;
 			}
+			
+			double promedio = 0;
+			for(Job j: terminatedJobs) {
+				int excecutionTime = j.getDepartureTime() - j.getArrivalTime();
+				promedio+= excecutionTime;
+			}
+			promedio /= terminatedJobs.size();
+			System.out.println("Average Time: " + promedio);
 		}
 
 	}
