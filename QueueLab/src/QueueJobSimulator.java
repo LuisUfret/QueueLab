@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class QueueJobSimulator {
 
@@ -10,7 +11,10 @@ public class QueueJobSimulator {
 		SLLQueue<Job> inputQueue = new SLLQueue<>();
 		int pid=1;
 		while(inputReader.hasNext()) {
-			
+			StringTokenizer s = new StringTokenizer(inputReader.nextLine(), ", ");
+			Job j= new Job(pid, Integer.parseInt(s.nextToken()), Integer.parseInt(s.nextToken()));
+			inputQueue.enqueue(j);
+			pid++;
 		}
 		inputReader.close();
 		
